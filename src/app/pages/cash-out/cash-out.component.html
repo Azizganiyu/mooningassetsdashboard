@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row p-3">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-money-coins text-success"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Current Earnings</p>
+              <p class="card-title">₦ 100,000
+                <p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8">
+    <div class="card card-user p-3">
+      <div class="card-header">
+        <h5 class="card-title">Fill In Bank Details For Immediate Transfer</h5>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col-12 px-1">
+              <div class="form-group">
+                <label for="">Bank Name</label>
+                <select class="form-control">
+                  <option *ngFor="let bank of bankList">{{bank.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 pl-1">
+              <div class="form-group">
+                <label for="">Account Number</label>
+                <input type="number" class="form-control">
+              </div>
+            </div>
+            <div class="col-12 pl-1">
+              <div class="form-group">
+                <label for="">Account Name</label>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+            <div class="col-12 pl-1">
+              <div class="form-group">
+                <label for="">Amount</label>
+                <input type="number" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round">Request Pay</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

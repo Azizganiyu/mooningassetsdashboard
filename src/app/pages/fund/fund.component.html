@@ -1,0 +1,89 @@
+<div class="row">
+  <h3>Fund Account Now</h3>
+
+  <div class="col-12">
+
+    <form [formGroup]="fundForm">
+
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <select class="form-control">
+              <option selected disabled>Select Payment Method</option>
+              <option>bth</option>
+              <option disabled>eth</option>
+              <option disabled>xmr</option>
+              <option disabled>bch</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <input formControlName="value" type="number" class="form-control" placeholder="Quantity to fund">
+          </div>
+        </div>
+        <div class="col-12 text-center mt-3">
+          <span><strong>Equivalent: </strong></span> ₦{{value.toLocaleString()}}
+        </div>
+        <div class="col-12 text-center mt-3">
+          <button type="submit" class="btn btn-success btn-round">FUND</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Funding History</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th>
+                Amount (₦)
+              </th>
+              <th>
+                Account Address
+              </th>
+              <th class="text-right">
+                Date
+              </th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  50,000
+                </td>
+                <td>
+                  1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2
+                </td>
+                <td class="text-right">
+                  12/04/2020
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  20,000
+                </td>
+                <td>
+                  3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy
+                </td>
+                <td class="text-right">
+                  9/07/2020
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
