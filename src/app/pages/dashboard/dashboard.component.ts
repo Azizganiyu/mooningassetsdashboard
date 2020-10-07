@@ -28,8 +28,8 @@ export class DashboardComponent implements OnInit{
         data: {
           labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
           datasets: [{
-              borderColor: "#6bd098",
-              backgroundColor: "#6bd098",
+              borderColor: "#039",
+              backgroundColor: "#039",
               pointRadius: 0,
               pointHoverRadius: 0,
               borderWidth: 3,
@@ -111,7 +111,7 @@ export class DashboardComponent implements OnInit{
               '#e3e3e3',
               '#4acccd',
               '#fcc468',
-              '#ef8157'
+              '#ffb953'
             ],
             borderWidth: 0,
             data: [342, 480, 530, 120]
@@ -168,9 +168,9 @@ export class DashboardComponent implements OnInit{
       var dataFirst = {
         data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
         fill: false,
-        borderColor: '#fbc658',
+        borderColor: '#039',
         backgroundColor: 'transparent',
-        pointBorderColor: '#fbc658',
+        pointBorderColor: '#039',
         pointRadius: 4,
         pointHoverRadius: 4,
         pointBorderWidth: 8,
