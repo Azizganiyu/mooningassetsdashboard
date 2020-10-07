@@ -21,12 +21,12 @@
   <head>
       <meta charset="utf-8" />
       <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-      <link rel="icon" type="image/png" sizes="96x96" href="./assets/img/favicon.png">
+      <link rel="icon"  type="image/x-icon" sizes="96x96" href="./assets/img/favicon.ico">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
       <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
       <meta name="viewport" content="width=device-width" />
 
-      <title>Paper Dashboard Angular by Creative Tim</title>
+      <title>ApexxOptions Dashboard</title>
 
       <base href="/">
 
@@ -40,12 +40,57 @@
 
       <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 
+      <style>
+        body{font-family:Poppins,sans-serif!important}
+        .loader{
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        @keyframes ldio-46ehk3ch1yf {
+      0% { transform: rotate(0deg) }
+      50% { transform: rotate(180deg) }
+      100% { transform: rotate(360deg) }
+    }
+    .ldio-46ehk3ch1yf div {
+      position: absolute;
+      animation: ldio-46ehk3ch1yf 1s linear infinite;
+      width: 160px;
+      height: 160px;
+      top: 20px;
+      left: 20px;
+      border-radius: 50%;
+      box-shadow: 0 4px 0 0 #003399;
+      transform-origin: 80px 82px;
+    }
+    .loadingio-spinner-eclipse-g8bbr9619mt {
+      width: 200px;
+      height: 200px;
+      display: inline-block;
+      overflow: hidden;
+    }
+    .ldio-46ehk3ch1yf {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform: translateZ(0) scale(1);
+      backface-visibility: hidden;
+      transform-origin: 0 0; /* see note above */
+    }
+    .ldio-46ehk3ch1yf div { box-sizing: content-box; }
+      </style>
   </head>
   <body>
       <app-root>
-          <div class="loader-container">
-              <div class="loader"></div>
+        <div class="loader">
+          <div class="loadingio-spinner-eclipse-g8bbr9619mt">
+            <div class="ldio-46ehk3ch1yf">
+              <div>
+              </div>
+            </div>
           </div>
+        </div>
       </app-root>
   </body>
 
