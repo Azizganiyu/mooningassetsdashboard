@@ -9,7 +9,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class FundComponent implements OnInit {
 
   value: number = 0;
-  nairaRate:number = 4091325.59
+  nairaRate:number = 11379.30
   fundForm = this._fb.group({
     value:  ['', [Validators.required]]
   })
