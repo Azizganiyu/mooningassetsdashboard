@@ -1,0 +1,32 @@
+<h2 mat-dialog-title class="title">
+  <div class="text-right">
+      <button class="close-btn" (click)="close()"><i class="fa fa-times-circle"></i></button>
+  </div>
+</h2>
+
+<mat-dialog-content>
+
+<form [formGroup]="fundForm" (ngSubmit)='requestFunding()'>
+  <div class="form-group">
+    <label for="first-name">Your bitcoin Address (Enter address bitcoin was sent from)</label>
+    <input formControlName="addressPaidFrom" type="text" class="form-control" placeholder="address">
+  </div>
+  <div class="row">
+    <div class="update ml-auto mr-auto">
+      <button [disabled]="!fundForm.valid" type="submit" class="btn btn-success btn-round">
+        <span *ngIf="!submit">Submit</span>
+        <div *ngIf="submit">
+            <app-loader></app-loader>
+            <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+</div>
+</form>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button class="no" (click)="no()" mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

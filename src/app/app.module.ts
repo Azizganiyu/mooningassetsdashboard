@@ -20,12 +20,16 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { InitializeComponent } from './components/initialize/initialize.component';
+import { SharedModule } from './shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    InitializeComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -40,7 +44,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    FixedPluginModule
+    FixedPluginModule,
+    SharedModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

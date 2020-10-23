@@ -1,0 +1,29 @@
+.file-input-wrapper{
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+.file_input{
+  opacity: 0;
+  cursor: pointer;
+  height: 30px;
+  top:5px;
+  position: absolute;
+}
+
+button{
+  cursor: pointer;
+}
+
+.progress-wrapper{
+  width: 100%;
+  height: 10px;
+  background-color: rgb(230, 230, 230);
+
+  .progress{
+    background-color: #1fa73c;
+    height: 100%;
+  }
+}

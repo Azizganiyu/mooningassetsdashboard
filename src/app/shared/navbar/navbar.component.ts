@@ -2,11 +2,18 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/co
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
+import { AuthService } from 'app/services/auth/auth.service';
+import { ConfirmComponent } from 'app/components/confirm/confirm.component';
+import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { NotificationService } from 'app/services/notification/notification.service';
+import {Observable} from "rxjs";
+import { HelperService } from 'app/services/helper/helper.service';
 
 @Component({
     moduleId: module.id,
     selector: 'navbar-cmp',
-    templateUrl: 'navbar.component.html'
+    templateUrl: 'navbar.component.html',
+    styleUrls: ['navbar.component.scss']
 })
 
 export class NavbarComponent implements OnInit{
@@ -15,14 +22,43 @@ export class NavbarComponent implements OnInit{
     private nativeElement: Node;
     private toggleButton;
     private sidebarVisible: boolean;
-
     public isCollapsed = true;
     @ViewChild("navbar-cmp", {static: false}) button;
 
-    constructor(location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router) {
+    notification: Observable<any[]>
+    notificationCount: number = 0
+
+    constructor(
+      location:Location,
+      private renderer : Renderer2,
+      private element : ElementRef,
+      private router: Router,
+      public auth: AuthService,
+      private matDialog: MatDialog,
+      private notify: NotificationService,
+      public _helper: HelperService
+      ) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
+
+        this.auth.user$.subscribe((data) => {
+          if(data){
+            this.notification = this.notify.notification
+            this.notification.subscribe((data) => {
+              if(data){
+                let count = 0
+                data.forEach((result) => {
+                  if(!result.read){
+                    count++
+                  }
+                })
+                this.notificationCount = count
+              }
+            })
+          }
+        })
+
     }
 
     ngOnInit(){
@@ -90,6 +126,28 @@ export class NavbarComponent implements OnInit{
           navbar.classList.remove('bg-white');
         }
 
+      }
+
+      signout(){
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = {
+          title: 'logout',
+          subtitle: 'Are you sure you want to logout?'
+        };
+        dialogConfig.autoFocus = false;
+        let dialogRef = this.matDialog.open(ConfirmComponent, dialogConfig);
+
+        dialogRef.afterClosed().subscribe(result => {
+
+          if(result){
+            this.auth.signOut()
+          }
+        });
+      }
+
+      goToNotifyLink(id, url){
+        this.notify.read(id)
+        this.router.navigate([url])
       }
 
 }

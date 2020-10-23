@@ -10,8 +10,8 @@
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Current Earnings</p>
-              <p class="card-title">$ 100,000
+              <p class="card-category">Current Balance</p>
+              <p class="card-title">{{balance}}
                 <p>
             </div>
           </div>
@@ -24,45 +24,147 @@
   <div class="col-md-8">
     <div class="card card-user p-3">
       <div class="card-header">
-        <h5 class="card-title">Fill In Bank Details For Immediate Transfer</h5>
+        <h6 class="card-title">Fill In Details For Immediate Transfer</h6>
       </div>
       <div class="card-body">
-        <form>
-          <div class="row">
-            <div class="col-12 px-1">
-              <div class="form-group">
-                <label for="">Bank Name</label>
-                <select class="form-control">
-                  <option *ngFor="let bank of bankList">{{bank.name}}</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-12 pl-1">
-              <div class="form-group">
-                <label for="">Account Number</label>
-                <input type="number" class="form-control">
-              </div>
-            </div>
-            <div class="col-12 pl-1">
-              <div class="form-group">
-                <label for="">Account Name</label>
-                <input type="text" class="form-control">
-              </div>
-            </div>
-            <div class="col-12 pl-1">
-              <div class="form-group">
-                <label for="">Amount</label>
-                <input type="number" class="form-control">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-success btn-round">Request Pay</button>
-            </div>
-          </div>
-        </form>
+        <mat-tab-group (selectedTabChange)="tabChanged($event)" dynamicHeight>
+          <!-- <mat-tab label="Bank">
+            <form [formGroup]="withdrawalForm" (ngSubmit)='request()'>
+                <div class="col-12 px-1 mt-5">
+                  <div class="form-group">
+                    <label for="">Bank Name</label>
+                    <select formControlName="bank_name" class="form-control">
+                      <option [value]="bank.name" *ngFor="let bank of bankList">{{bank.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 pl-1">
+                  <div class="form-group">
+                    <label for="">Account Number</label>
+                    <input formControlName="account_number" type="number" class="form-control">
+                    <div *ngIf="withdrawalForm.controls.account_number.invalid && (withdrawalForm.controls.account_number.dirty || withdrawalForm.controls.account_number.touched)">
+                      <div style="color:#933B39;" *ngIf="withdrawalForm.controls.account_number?.hasError('required')">Required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 pl-1">
+                  <div class="form-group">
+                    <label for="">Account Name</label>
+                    <input formControlName="account_name" type="text" class="form-control">
+                    <div *ngIf="withdrawalForm.controls.account_name.invalid && (withdrawalForm.controls.account_name.dirty || withdrawalForm.controls.account_name.touched)">
+                      <div style="color:#933B39;" *ngIf="withdrawalForm.controls.account_name?.hasError('required')">Required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 pl-1">
+                  <div class="form-group">
+                    <label for="">Amount ($) </label>
+                    <input formControlName="amount" type="number" class="form-control">
+                    <div *ngIf="withdrawalForm.controls.amount.invalid && (withdrawalForm.controls.amount.dirty || withdrawalForm.controls.amount.touched)">
+                      <div style="color:#933B39;" *ngIf="withdrawalForm.controls.amount?.hasError('required')">Required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="update ml-auto mr-auto">
+                  <button [disabled]="!withdrawalForm.valid" type="submit" class="btn btn-success btn-round">
+                    <span *ngIf="!submit">Request Pay</span>
+                    <div *ngIf="submit">
+                        <app-loader></app-loader>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                  </button>
+                </div>
+            </form>
+          </mat-tab> -->
+          <mat-tab label="Bitcoin">
+            <form [formGroup]="bitcoinForm" (ngSubmit)='request()'>
+                <div class="col-12 pl-1 mt-5">
+                  <div class="form-group">
+                    <label for="">Bitcoin Address</label>
+                    <input formControlName="bitcoin_address" type="text" class="form-control">
+                    <div *ngIf="bitcoinForm.controls.bitcoin_address.invalid && (bitcoinForm.controls.bitcoin_address.dirty || bitcoinForm.controls.bitcoin_address.touched)">
+                      <div style="color:#933B39;" *ngIf="bitcoinForm.controls.bitcoin_address?.hasError('required')">Required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 pl-1">
+                  <div class="form-group">
+                    <label for="">Amount ($)</label>
+                    <input formControlName="amount" type="number" class="form-control">
+                    <div *ngIf="bitcoinForm.controls.amount.invalid && (bitcoinForm.controls.amount.dirty || bitcoinForm.controls.amount.touched)">
+                      <div style="color:#933B39;" *ngIf="bitcoinForm.controls.amount?.hasError('required')">Required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="update ml-auto mr-auto">
+                  <button [disabled]="!bitcoinForm.valid" type="submit" class="btn btn-success btn-round">
+                    <span *ngIf="!submit">Request Pay</span>
+                    <div *ngIf="submit">
+                        <app-loader></app-loader>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                  </button>
+                </div>
+            </form>
+          </mat-tab>
+        </mat-tab-group>
       </div>
     </div>
   </div>
+</div>
+
+
+<div class="row mt-5">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Fundings</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th>
+                Amount (₿)
+              </th>
+              <th>
+                Type
+              </th>
+              <th>
+                Status
+              </th>
+              <th class="text-right">
+                Date
+              </th>
+            </thead>
+            <tbody *ngIf="requests | async; else noRequests; let items">
+              <tr *ngFor="let item of items">
+                <td>
+                  {{item.amount}}
+                </td>
+                <td>
+                  {{item.type}}
+                </td>
+                <td>
+                  {{item.accepted? 'Confirmed':item.rejected? 'Rejected':'Pending'}}
+                </td>
+                <td class="text-right">
+                  {{_helper.formatDate(item.date)}}
+                </td>
+              </tr>
+
+            </tbody>
+            <ng-template #noRequests>
+              <tbody>
+                <tr>
+                  loading...
+                </tr>
+              </tbody>
+            </ng-template>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

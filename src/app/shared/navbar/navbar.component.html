@@ -31,15 +31,36 @@
       <ul class="navbar-nav">
         <li class="nav-item btn-rotate" ngbDropdown placement="bottom-left">
           <a class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink" >
-            <i class="nc-icon nc-bell-55"></i>
+            <i class="nc-icon nc-bell-55 icon">
+              <div class="count">
+                {{notificationCount}}
+              </div>
+            </i>
             <p>
-              <span class="d-lg-none d-md-block">Some Actions</span>
+              <span class="d-lg-none d-md-block">Notifications</span>
             </p>
           </a>
-          <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
-            <a ngbDropdownItem href="javascript:void(0)">Welcome to Apexxoptions</a>
-            <a ngbDropdownItem href="javascript:void(0)">How to get started</a>
+          <div *ngIf="notification | async; else noNotification; let items" ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+            <a ngbDropdownItem class="notifications" (click)="goToNotifyLink(item.id, item.url)" *ngFor="let item of items">
+              <div class="items">
+                <div class="message">
+                  <h6>{{_helper.cutText(item.title, 30)}}</h6>
+                  <p>{{_helper.cutText(item.description, 35)}}</p>
+                </div>
+                <div [ngClass]="{'bg-success': !item.read, 'bg-secondary': item.read}" class="indicator">
+
+                </div>
+              </div>
+            </a>
           </div>
+          <ng-template #noNotification>
+            <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+              <a ngbDropdownItem>You currently have no notifications!</a>
+            </div>
+          </ng-template>
+        </li>
+        <li>
+          <button class="btn btn-sm btn-primary" (click)="signout()">logout</button>
         </li>
       </ul>
     </div>

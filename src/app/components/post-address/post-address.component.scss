@@ -1,0 +1,33 @@
+.title{
+  color: rgb(40, 40, 40);
+}
+button.yes{
+  color: white;
+  background-color: #003399;
+
+  &:hover{
+      opacity: .5;
+  }
+}
+h5{
+  text-transform: uppercase;
+}
+button.no{
+  color: white;
+  background-color: rgb(250, 62, 62);
+
+  &:hover{
+      opacity: .5
+  }
+}
+
+.close-btn{
+  color: rgb(250, 62, 62);
+  font-size: 1.5em;
+  border: unset;
+  background-color: unset;
+}
+
+.plan{
+  text-transform: capitalize;
+}

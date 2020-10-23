@@ -18,25 +18,25 @@
                 Action
               </th>
             </thead>
-            <tbody>
-              <tr>
+            <tbody *ngIf="notification | async; else noNotification; let items">
+              <tr *ngFor="let item of items">
                 <td>
-                  Welcome to Apexxoptions
+                  {{_helper.cutText(item.title, 30)}}
                 </td>
                 <td>
-                  <button type="submit" class="btn btn-success btn-round">View</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  How to get started
-                </td>
-                <td>
-                  <button type="submit" class="btn btn-success btn-round">View</button>
+                  <button (click)="view(item)" type="submit" class="btn btn-success btn-round">View</button>
                 </td>
               </tr>
-
             </tbody>
+            <ng-template #noNotification>
+              <tbody>
+                <tr>
+                  <td>
+                    You do not have any notification
+                  </td>
+                </tr>
+              </tbody>
+            </ng-template>
           </table>
         </div>
       </div>

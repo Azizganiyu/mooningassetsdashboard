@@ -1,0 +1,28 @@
+<h2 mat-dialog-title class="title">
+  <div class="text-right">
+      <button class="close-btn" (click)="close()"><i class="fa fa-times-circle"></i></button>
+  </div>
+</h2>
+
+<mat-dialog-content>
+
+<form [formGroup]="fundForm" (ngSubmit)='getAmount()'>
+  <div class="form-group">
+    <label for="first-name">Enter amount ($) *between {{data.min}} and {{data.max}}</label>
+    <input formControlName="value" type="text" class="form-control" placeholder="address">
+  </div>
+  <div class="row">
+    <div class="update ml-auto mr-auto">
+      <button [disabled]="!fundForm.valid" type="submit" class="btn btn-success btn-round">
+        Continue
+      </button>
+    </div>
+</div>
+</form>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button class="no" (click)="no()" mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

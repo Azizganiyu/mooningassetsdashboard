@@ -5,24 +5,37 @@
         <h5 class="card-title">Change Email</h5>
       </div>
       <div class="card-body">
-        <form>
+        <form [formGroup]="changeemailForm" (ngSubmit)="changeEmail()">
           <div class="row">
             <div class="col-12 pl-1">
               <div class="form-group">
                 <label for="">Password</label>
-                <input type="password" class="form-control">
+                <input formControlName="password" type="password" class="form-control">
+                <div *ngIf="changeemailForm.controls.password.invalid && (changeemailForm.controls.password.dirty || changeemailForm.controls.password.touched)">
+                  <div class="text-danger" *ngIf="changeemailForm.controls.password?.hasError('required')">Required</div>
+                </div>
               </div>
             </div>
             <div class="col-12 pl-1">
               <div class="form-group">
                 <label for="">New Email</label>
-                <input type="text" class="form-control">
+                <input type="text" formControlName="email" class="form-control">
+                <div *ngIf="changeemailForm.controls.email.invalid && (changeemailForm.controls.email.dirty || changeemailForm.controls.email.touched)">
+                  <div class="text-danger" *ngIf="changeemailForm.controls.email?.hasError('required')">Required</div>
+                  <div class="text-danger" *ngIf="changeemailForm.controls.email?.hasError('email')">Invalid email</div>
+                </div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-success btn-round">Update Email</button>
+              <button [disabled]="!changeemailForm.valid" type="submit" class="btn btn-success btn-round">
+                <span *ngIf="!updatingChangeemailForm">Update Email</span>
+                <div *ngIf="updatingChangeemailForm">
+                    <app-loader></app-loader>
+                    <span class="sr-only">Loading...</span>
+                </div>
+              </button>
             </div>
           </div>
         </form>
@@ -38,24 +51,36 @@
         <h5 class="card-title">Change Password</h5>
       </div>
       <div class="card-body">
-        <form>
+        <form [formGroup]="changepassForm" (ngSubmit)="changePass()">
           <div class="row">
             <div class="col-12 pl-1">
               <div class="form-group">
                 <label for="">Old Password</label>
-                <input type="text" class="form-control">
+                <input type="password" formControlName="oldpassword" class="form-control">
+                <div *ngIf="changepassForm.controls.oldpassword.invalid && (changepassForm.controls.oldpassword.dirty || changepassForm.controls.oldpassword.touched)">
+                  <div class="text-danger" *ngIf="changepassForm.controls.oldpassword?.hasError('required')">Required</div>
+                </div>
               </div>
             </div>
             <div class="col-12 pl-1">
               <div class="form-group">
                 <label for="">New Password</label>
-                <input type="text" class="form-control">
+                <input type="password" formControlName="newpassword" class="form-control">
+                <div *ngIf="changepassForm.controls.newpassword.invalid && (changepassForm.controls.newpassword.dirty || changepassForm.controls.newpassword.touched)">
+                  <div class="text-danger" *ngIf="changepassForm.controls.newpassword?.hasError('required')">Required</div>
+                </div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-success btn-round">Update Password</button>
+              <button [disabled]="!changepassForm.valid" type="submit" class="btn btn-success btn-round">
+                <span *ngIf="!updatingChangepassForm">Update Password</span>
+                <div *ngIf="updatingChangepassForm">
+                    <app-loader></app-loader>
+                    <span class="sr-only">Loading...</span>
+                </div>
+              </button>
             </div>
           </div>
         </form>

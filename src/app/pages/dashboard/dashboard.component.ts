@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from 'app/services/auth/auth.service';
 import Chart from 'chart.js';
 
 
@@ -10,200 +12,71 @@ import Chart from 'chart.js';
 
 export class DashboardComponent implements OnInit{
 
-  public canvas : any;
-  public ctx;
-  public chartColor;
-  public chartEmail;
-  public chartHours;
 
-    ngOnInit(){
-      this.chartColor = "#FFFFFF";
+  loading: boolean = true
 
-      this.canvas = document.getElementById("chartHours");
-      this.ctx = this.canvas.getContext("2d");
+  funds: any
+  earnings: any
+  withdrawals: any
+  transactions: any
+  transactionData: any = []
 
-      this.chartHours = new Chart(this.ctx, {
-        type: 'line',
-
-        data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
-          datasets: [{
-              borderColor: "#039",
-              backgroundColor: "#039",
-              pointRadius: 0,
-              pointHoverRadius: 0,
-              borderWidth: 3,
-              data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354]
-            },
-            {
-              borderColor: "#f17e5d",
-              backgroundColor: "#f17e5d",
-              pointRadius: 0,
-              pointHoverRadius: 0,
-              borderWidth: 3,
-              data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
-            },
-            {
-              borderColor: "#fcc468",
-              backgroundColor: "#fcc468",
-              pointRadius: 0,
-              pointHoverRadius: 0,
-              borderWidth: 3,
-              data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
-            }
-          ]
-        },
-        options: {
-          legend: {
-            display: false
-          },
-
-          tooltips: {
-            enabled: false
-          },
-
-          scales: {
-            yAxes: [{
-
-              ticks: {
-                fontColor: "#9f9f9f",
-                beginAtZero: false,
-                maxTicksLimit: 5,
-                //padding: 20
-              },
-              gridLines: {
-                drawBorder: false,
-                zeroLineColor: "#ccc",
-                color: 'rgba(255,255,255,0.05)'
-              }
-
-            }],
-
-            xAxes: [{
-              barPercentage: 1.6,
-              gridLines: {
-                drawBorder: false,
-                color: 'rgba(255,255,255,0.1)',
-                zeroLineColor: "transparent",
-                display: false,
-              },
-              ticks: {
-                padding: 20,
-                fontColor: "#9f9f9f"
-              }
-            }]
-          },
-        }
-      });
+  constructor(
+    private afs: AngularFirestore,
+    private auth: AuthService
+    ) {
+  }
 
 
-      this.canvas = document.getElementById("chartEmail");
-      this.ctx = this.canvas.getContext("2d");
-      this.chartEmail = new Chart(this.ctx, {
-        type: 'pie',
-        data: {
-          labels: [1, 2, 3],
-          datasets: [{
-            label: "Emails",
-            pointRadius: 0,
-            pointHoverRadius: 0,
-            backgroundColor: [
-              '#e3e3e3',
-              '#4acccd',
-              '#fcc468',
-              '#ffb953'
-            ],
-            borderWidth: 0,
-            data: [342, 480, 530, 120]
-          }]
-        },
+  ngOnInit(){
+    this.getAmountFunded()
+  }
 
-        options: {
+  getAmountFunded(){
+    this.afs.collection('fund_request', ref => ref.where('uid', '==', this.auth.user.uid)).get()
+    .subscribe((data) => {
+      if(!data.empty){
+        let count = 0
+        data.forEach((fund) => {
+          if(fund.data().accepted){
+            count += fund.data().planAmount
+          }
+        })
+        this.funds = '$'+count.toLocaleString()
+      }
+      else{
+        this.funds = '$0'
+      }
+      this.getEarnings()
+    })
+  }
 
-          legend: {
-            display: false
-          },
+  getEarnings(){
+    this.afs.collection('transactions', ref => ref.where('uid', '==', this.auth.user.uid)).get()
+    .subscribe((data) => {
+      if(!data.empty){
+        let transactions = 0
+        let credit = 0
+        let debit = 0
+        let transactionData = []
+        data.forEach((fund) => {
+          transactions++
+          credit += fund.data().type == 'credit'? fund.data().value:0
+          debit += fund.data().type == 'debit'? fund.data().value:0
+          transactionData.push({...fund.data()})
+        })
+        this.transactionData = transactionData
+        this.transactions = transactions
+        this.earnings = '$'+credit.toLocaleString()
+        this.withdrawals = '$'+(debit)
+      }
+      else{
+        this.transactions = 0
+        this.earnings = '$0'
+        this.withdrawals = '$0'
+      }
+      this.loading = false
+    })
+  }
 
-          pieceLabel: {
-            render: 'percentage',
-            fontColor: ['white'],
-            precision: 2
-          },
-
-          tooltips: {
-            enabled: false
-          },
-
-          scales: {
-            yAxes: [{
-
-              ticks: {
-                display: false
-              },
-              gridLines: {
-                drawBorder: false,
-                zeroLineColor: "transparent",
-                color: 'rgba(255,255,255,0.05)'
-              }
-
-            }],
-
-            xAxes: [{
-              barPercentage: 1.6,
-              gridLines: {
-                drawBorder: false,
-                color: 'rgba(255,255,255,0.1)',
-                zeroLineColor: "transparent"
-              },
-              ticks: {
-                display: false,
-              }
-            }]
-          },
-        }
-      });
-
-      var speedCanvas = document.getElementById("speedChart");
-
-      var dataFirst = {
-        data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
-        fill: false,
-        borderColor: '#039',
-        backgroundColor: 'transparent',
-        pointBorderColor: '#039',
-        pointRadius: 4,
-        pointHoverRadius: 4,
-        pointBorderWidth: 8,
-      };
-
-      var dataSecond = {
-        data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
-        fill: false,
-        borderColor: '#51CACF',
-        backgroundColor: 'transparent',
-        pointBorderColor: '#51CACF',
-        pointRadius: 4,
-        pointHoverRadius: 4,
-        pointBorderWidth: 8
-      };
-
-      var speedData = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [dataFirst, dataSecond]
-      };
-
-      var chartOptions = {
-        legend: {
-          display: false,
-          position: 'top'
-        }
-      };
-
-      var lineChart = new Chart(speedCanvas, {
-        type: 'line',
-        hover: false,
-        data: speedData,
-        options: chartOptions
-      });
-    }
 }

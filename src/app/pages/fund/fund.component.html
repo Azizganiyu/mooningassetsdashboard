@@ -1,9 +1,68 @@
 <div class="row">
-  <h3>Fund Account Now</h3>
+  <div>
+    <h3>Fund Account Now</h3>
+    <p>Select a plan to fund your account.</p>
+  </div>
 
   <div class="col-12">
 
-    <form [formGroup]="fundForm">
+    <div class="row">
+      <div class="col-12">
+       <div class="plan-wrapper">
+
+        <div class="box starter">
+          <div class="title">Starter</div>
+          <div class="amount">
+            <span class="currency"><sup>$</sup></span>200 -
+            <span class="currency"><sup>$</sup></span>1000
+          </div>
+          <div class="button">
+            <button (click)="getAmount('starter')" class="starter">Select</button>
+          </div>
+          <div class="circle"></div>
+        </div>
+
+
+        <div class="box premium">
+          <div class="title">Premium</div>
+          <div class="amount">
+            <span class="currency"><sup>$</sup></span>1000 -
+            <span class="currency"><sup>$</sup></span>5000
+          </div>
+          <div class="button">
+            <button (click)="getAmount('premium')" class="premium">Select</button>
+          </div>
+          <div class="circle"></div>
+        </div>
+
+        <div class="box deluxe">
+          <div class="title">Deluxe</div>
+          <div class="amount">
+            <span class="currency"><sup>$</sup></span>5000 -
+            <span class="currency"><sup>$</sup></span>10000
+          </div>
+          <div class="button">
+            <button (click)="getAmount('deluxe')" class="deluxe">Select</button>
+          </div>
+          <div class="circle"></div>
+        </div>
+
+        <div class="box exclusive">
+          <div class="title">Exclusive</div>
+          <div class="amount">
+            <span class="currency"><sup>$</sup></span>10000 -
+            <span class="currency"><sup>$</sup></span>100000
+          </div>
+          <div class="button">
+            <button (click)="getAmount('exclusive')" class="exclusive">Select</button>
+          </div>
+          <div class="circle"></div>
+        </div>
+
+       </div>
+      </div>
+    </div>
+    <!-- <form [formGroup]="fundForm">
 
       <div class="row">
         <div class="col-12 col-md-6">
@@ -30,7 +89,7 @@
         </div>
       </div>
 
-    </form>
+    </form> -->
 
   </div>
 </div>
@@ -39,47 +98,55 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title">Funding History</h4>
+        <h4 class="card-title">Fundings</h4>
       </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table">
             <thead class=" text-primary">
               <th>
-                Amount ($)
+                Amount (₿)
               </th>
               <th>
                 Account Address
+              </th>
+              <th>
+                Plan
+              </th>
+              <th>
+                Status
               </th>
               <th class="text-right">
                 Date
               </th>
             </thead>
-            <tbody>
-              <tr>
+            <tbody *ngIf="requests | async; else noRequests; let items">
+              <tr *ngFor="let item of items">
                 <td>
-                  50,000
+                  {{item.value}}
                 </td>
                 <td>
-                  1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2
+                  {{item.addressPaidFrom}}
+                </td>
+                <td>
+                  {{item.paymentPlan}}
+                </td>
+                <td>
+                  {{item.accepted? 'Confirmed':item.rejected? 'Rejected':'Pending'}}
                 </td>
                 <td class="text-right">
-                  12/04/2020
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  20,000
-                </td>
-                <td>
-                  3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy
-                </td>
-                <td class="text-right">
-                  9/07/2020
+                  {{_helper.formatDate(item.date)}}
                 </td>
               </tr>
 
             </tbody>
+            <ng-template #noRequests>
+              <tbody>
+                <tr>
+                  loading...
+                </tr>
+              </tbody>
+            </ng-template>
           </table>
         </div>
       </div>

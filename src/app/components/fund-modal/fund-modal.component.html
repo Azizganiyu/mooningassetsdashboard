@@ -1,0 +1,38 @@
+<h2 mat-dialog-title class="title">
+  <div class="text-right">
+      <button class="close-btn" (click)="close()"><i class="fa fa-times-circle"></i></button>
+  </div>
+</h2>
+
+<mat-dialog-content>
+
+  <p><strong>Plan Selected:</strong> <span class="plan"> {{data.plan}}</span></p>
+  <p><strong>Amount:</strong> <span class="plan"> ${{data.amount.toLocaleString()}}</span></p>
+  <h6 class="mt-5">Payment Methods</h6>
+  <mat-tab-group (selectedTabChange)="tabChanged($event)" dynamicHeight>
+    <mat-tab label="Bitcoin">
+      <div class="text-center mt-5">
+        <h6><strong>Bitcoin Payment Address:</strong> {{addressPaidTo}}</h6>
+
+        <button class="btn btn-success btn-sm mb-3" (click)="copy()">
+          <i class="fa fa-clone"></i>
+        </button>
+
+        <h6><strong>Amount to deposit:</strong> {{bitcoin}}</h6>
+        <p>Please ensure you have made payment to the above address before clicking on 'Continue' button below.</p>
+    `</div>
+    </mat-tab>
+    <mat-tab label="Etherium"> <p class="mt-5">Coming soon</p> </mat-tab>
+    <mat-tab label="Payment Gateway"> <p class="mt-5">coming soon</p> </mat-tab>
+    <mat-tab label="Bank Transfer"> <p class="mt-5">Coming soon</p> </mat-tab>
+  </mat-tab-group>
+
+
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button *ngIf="activeTabIndex == 0" class="yes" (click)="yes()" mat-button [mat-dialog-close]="true" cdkFocusInitial>Continue</button>
+  <button class="no" (click)="no()" mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

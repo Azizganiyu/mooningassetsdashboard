@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+
+.cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
+a:active, .link:focus, .link:active, .link:visited, textarea:focus, textarea:active, textarea:visited, input:focus, button:active, input:active, a:focus, button:focus, input:focus a:visited, button:visited, input:visited, select:active, select:focus, select:visited{
+  outline: none !important;
+  outline-style: none !important;
+}
+
+.primary-color{
+  color: #003399;
+}
+
+
+btn-primary{
+  background-color: #003399;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+img.img-bg{
+  background-image: url(assets/images/placeholder.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.mat-form-field-underline {
+  background-color: rgb(41, 41, 41) !important;
+}

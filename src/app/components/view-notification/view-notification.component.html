@@ -1,0 +1,15 @@
+<h2 mat-dialog-title class="title">
+  <h5>{{data.title}}</h5>
+</h2>
+
+<mat-dialog-content>
+
+<div class="text-center">
+    <p>{{data.description}}</p>
+</div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="right">
+  <button class="yes" (click)="close()" mat-button [mat-dialog-close]="true" cdkFocusInitial>close</button>
+</mat-dialog-actions>
