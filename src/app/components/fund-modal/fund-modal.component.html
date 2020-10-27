@@ -12,10 +12,10 @@
   <mat-tab-group (selectedTabChange)="tabChanged($event)" dynamicHeight>
     <mat-tab label="Bitcoin">
       <div class="text-center mt-5">
-        <h6><strong>Bitcoin Payment Address:</strong> {{addressPaidTo}}</h6>
+        <p><strong>Bitcoin Payment Address:</strong> {{addressPaidTo}}</p>
 
         <button class="btn btn-success btn-sm mb-3" (click)="copy()">
-          <i class="fa fa-clone"></i>
+          <!-- <i class="fa fa-clone"></i> --> copy address
         </button>
 
         <h6><strong>Amount to deposit:</strong> {{bitcoin}}</h6>

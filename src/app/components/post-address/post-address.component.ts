@@ -16,7 +16,7 @@ export class PostAddressComponent implements OnInit {
   fundForm = this._fb.group({
     value:  ['', [Validators.required]],
     addressPaidTo: ['', [Validators.required]],
-    addressPaidFrom: ['', [Validators.required]],
+    //addressPaidFrom: ['', [Validators.required]],
     paymentType: ['', [Validators.required]],
     paymentPlan: ['', [Validators.required]],
     planAmount: ['', [Validators.required]],
@@ -39,7 +39,7 @@ export class PostAddressComponent implements OnInit {
       value: this.data.value,
       paymentType: this.data.paymentType,
       paymentPlan : this.data.paymentPlan,
-      planAmount : this.data.planAmount
+      planAmount : parseInt(this.data.planAmount)
     })
   }
 

@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HelperService } from 'app/services/helper/helper.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-fund-modal',
@@ -17,7 +18,7 @@ export class FundModalComponent implements OnInit {
   bitcoin: any = 'Loading...'
   submit: boolean = false
   activeTabIndex: number = 0
-  addressPaidTo: string = "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2"
+  addressPaidTo: string = "please wait..."
   value: any
   paymentType: string = "bitcoin"
   paymentPlan: string = this.data.plan
@@ -28,10 +29,12 @@ export class FundModalComponent implements OnInit {
     private _http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private clipboard: Clipboard,
-    private _helper: HelperService
+    private _helper: HelperService,
+    private afs: AngularFirestore
   ) { }
 
   ngOnInit(): void {
+    this.getWalletAddress()
     this.getRate(this.data.amount)
   }
 
@@ -79,6 +82,13 @@ export class FundModalComponent implements OnInit {
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     //console.log('tabChangeEvent => ', tabChangeEvent);
     this.activeTabIndex = tabChangeEvent.index
+  }
+
+  getWalletAddress(){
+    this.afs.collection('admin').doc('settings').get()
+    .subscribe((data) => {
+      this.addressPaidTo = data.data().wallet
+    })
   }
 
 }
