@@ -10,7 +10,7 @@ interface accept {
 })
 export class EmailService {
 
-  self: string = "info@apexxoptions.com"
+  self: string = "info@mooningassets.com"
 
   // setting = {
   //   host:'smtp.gmail.com',
@@ -22,12 +22,12 @@ export class EmailService {
   // }
 
   setting = {
-    host:'mail.apexxoptions.com',
-    username:'info@apexxoptions.com',
+    host:'mail.mooningassets.com',
+    username:'info@mooningassets.com',
     password:'$aeMz1Ijlh7p',
     secure: false,
     port: 587,
-    from: 'Apexx Options'
+    from: 'Mooning Assets'
   }
 
   //url = 'http://localhost:4000/'
@@ -52,7 +52,7 @@ export class EmailService {
   notifySelf(message){
     let data = {
       email: this.self,
-      subject: 'Apexx Options'
+      subject: 'Mooning Assets'
     }
     let headers = new HttpHeaders();
     headers.set('Accept', 'application/json');
@@ -76,7 +76,7 @@ export class EmailService {
   }
 
   template(name, text){
-    return `<img style="margin:auto;" src="https://apexxoptions.com/assets/images/brand-trans.png" alt="image" />
+    return `<img style="margin:auto;" src="https://mooningassets.com/assets/images/brand-trans.png" alt="image" />
     <h4>Hello ${name}</h4><p>${text}</p>`
   }
 }

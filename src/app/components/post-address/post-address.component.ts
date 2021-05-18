@@ -16,7 +16,7 @@ export class PostAddressComponent implements OnInit {
   fundForm = this._fb.group({
     value:  ['', [Validators.required]],
     addressPaidTo: ['', [Validators.required]],
-    //addressPaidFrom: ['', [Validators.required]],
+    paymentID: ['', [Validators.required]],
     paymentType: ['', [Validators.required]],
     paymentPlan: ['', [Validators.required]],
     planAmount: ['', [Validators.required]],
@@ -39,7 +39,8 @@ export class PostAddressComponent implements OnInit {
       value: this.data.value,
       paymentType: this.data.paymentType,
       paymentPlan : this.data.paymentPlan,
-      planAmount : parseInt(this.data.planAmount)
+      planAmount : parseInt(this.data.planAmount),
+      paymentID : this.data.paymentID
     })
   }
 
@@ -68,8 +69,8 @@ export class PostAddressComponent implements OnInit {
 
     console.log(data)
 
-    this.afs.collection('fund_request').add(data).then((data) => {
-      this._helper.showSuccess('You will be confirmed within the next 12hrs', 'Request Sent!')
+    this.afs.collection('fund_request').doc(data.paymentID).set(data).then(() => {
+      this._helper.showSuccess('You will be confirmed within the next 4hrs', 'Request Sent!')
       this.submit = false
       this.close()
     }).catch((error) => {

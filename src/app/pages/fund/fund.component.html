@@ -1,98 +1,27 @@
-<div class="row">
-  <div>
-    <h3>Fund Account Now</h3>
-    <p>Select a plan to fund your account.</p>
-  </div>
-
-  <div class="col-12">
-
+<section class="investment" #investment>
+  <div class="container">
     <div class="row">
-      <div class="col-12">
-       <div class="plan-wrapper">
-
-        <div class="box starter">
-          <div class="title">Starter</div>
-          <div class="amount">
-            <span class="currency"><sup>$</sup></span>200 -
-            <span class="currency"><sup>$</sup></span>1000
-          </div>
-          <div class="button">
-            <button (click)="getAmount('starter')" class="starter">Select</button>
-          </div>
-          <div class="circle"></div>
-        </div>
-
-
-        <div class="box premium">
-          <div class="title">Premium</div>
-          <div class="amount">
-            <span class="currency"><sup>$</sup></span>1000 -
-            <span class="currency"><sup>$</sup></span>5000
-          </div>
-          <div class="button">
-            <button (click)="getAmount('premium')" class="premium">Select</button>
-          </div>
-          <div class="circle"></div>
-        </div>
-
-        <div class="box deluxe">
-          <div class="title">Deluxe</div>
-          <div class="amount">
-            <span class="currency"><sup>$</sup></span>5000 -
-            <span class="currency"><sup>$</sup></span>10000
-          </div>
-          <div class="button">
-            <button (click)="getAmount('deluxe')" class="deluxe">Select</button>
-          </div>
-          <div class="circle"></div>
-        </div>
-
-        <div class="box exclusive">
-          <div class="title">Exclusive</div>
-          <div class="amount">
-            <span class="currency"><sup>$</sup></span>10000 -
-            <span class="currency"><sup>$</sup></span>100000
-          </div>
-          <div class="button">
-            <button (click)="getAmount('exclusive')" class="exclusive">Select</button>
-          </div>
-          <div class="circle"></div>
-        </div>
-
-       </div>
+      <div class="col-12 text-center">
+        <h3>
+          Fund account now
+        </h3>
+        <p>Select a payment plan to continue</p>
       </div>
     </div>
-    <!-- <form [formGroup]="fundForm">
-
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <div class="form-group">
-            <select class="form-control">
-              <option selected disabled>Select Payment Method</option>
-              <option>bth</option>
-              <option disabled>eth</option>
-              <option disabled>xmr</option>
-              <option disabled>bch</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="form-group">
-            <input formControlName="value" type="number" class="form-control" placeholder="Quantity to fund">
-          </div>
-        </div>
-        <div class="col-12 text-center mt-3">
-          <span><strong>Equivalent: </strong></span> ${{value.toLocaleString()}}
-        </div>
-        <div class="col-12 text-center mt-3">
-          <button type="submit" class="btn btn-success btn-round">FUND</button>
-        </div>
+    <div class="row mt-5">
+      <div class="col-12">
+        <h5>
+          Moon Packages
+        </h5>
       </div>
-
-    </form> -->
-
+    </div>
+    <div class="row mt-1">
+      <div *ngFor="let item of plans; index as i" class="col-sm-6 mt-3 mb-3 col-md-3">
+        <app-pricing (click)="getAmount(i)" [item]="item"></app-pricing>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
 <div class="row mt-5">
   <div class="col-md-12">
@@ -106,6 +35,9 @@
             <thead class=" text-primary">
               <th>
                 Amount (₿)
+              </th>
+              <th>
+                Amount ($)
               </th>
               <!-- <th>
                 Account Address
@@ -124,6 +56,10 @@
               <tr *ngFor="let item of items">
                 <td>
                   {{item.value}}
+                </td>
+
+                <td>
+                  {{item.planAmount}}
                 </td>
                 <!-- <td>
                   {{item.addressPaidFrom}}

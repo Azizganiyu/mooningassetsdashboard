@@ -5,15 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyBDAPReR7OxyKoW1O12BMzi8JVnPRxiI2c",
-    authDomain: "apexxoption.firebaseapp.com",
-    databaseURL: "https://apexxoption.firebaseio.com",
-    projectId: "apexxoption",
-    storageBucket: "apexxoption.appspot.com",
-    messagingSenderId: "576275311281",
-    appId: "1:576275311281:web:ec533e31214a2d47d91090",
-    measurementId: "G-3J176NK4KW"
-  }
+    apiKey: "AIzaSyCdWyrmmlLhwozdm3cZn9Kg_wr8epMNf0o",
+    authDomain: "mooning-asset.firebaseapp.com",
+    projectId: "mooning-asset",
+    storageBucket: "mooning-asset.appspot.com",
+    messagingSenderId: "922131459337",
+    appId: "1:922131459337:web:bd2502f57256899d96b7d8",
+    measurementId: "G-YPPCVQYD5P"
+  },
 };
 
 /*

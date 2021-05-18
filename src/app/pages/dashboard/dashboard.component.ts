@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit{
 
   funds: any
   earnings: any
+  referralBonus: any
   withdrawals: any
   transactions: any
   transactionData: any = []
@@ -58,17 +59,20 @@ export class DashboardComponent implements OnInit{
         let transactions = 0
         let credit = 0
         let debit = 0
+        let referral = 0
         let transactionData = []
         data.forEach((fund) => {
           transactions++
           credit += fund.data().type == 'credit'? fund.data().value:0
           debit += fund.data().type == 'debit'? fund.data().value:0
+          referral += fund.data().type == 'referral'? fund.data().value:0
           transactionData.push({...fund.data()})
         })
         this.transactionData = transactionData
         this.transactions = transactions
         this.earnings = '$'+credit.toLocaleString()
         this.withdrawals = '$'+(debit)
+        this.referralBonus = '$'+(referral)
       }
       else{
         this.transactions = 0

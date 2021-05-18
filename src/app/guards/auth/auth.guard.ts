@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
         map(user => !!user),
         tap(loggedIn => {
           if(!loggedIn){
-            location.href = `https://apexxoptions.com/auth`
+            location.href = `https://mooningassets.com/auth`
           }
         })
       );

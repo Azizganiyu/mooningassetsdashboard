@@ -1,72 +1,12 @@
-.plan-wrapper{
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.box{
-  margin: 30px;
-  color: white;
-  width: 250px;
-  height: 250px;
-  border-radius: 40px;
-  padding: 20px;
-  position: relative;
+@import "../../../_variables.scss";
 
-
-  .circle{
-    width: 100px;
-    height: 100px;
-    border-radius: 100%;
-    background-color: rgba(255, 255, 255, .2);
-    position: absolute;
-    top: -10px;
-    right: -10px;
-  }
-
-  &.starter{
-    background-color: #FCC65A;
-  }
-  &.premium{
-    background-color: #4535AF;
-  }
-  &.deluxe{
-    background-color: #ED6943;
-  }
-  &.exclusive{
-    background-color: #b81b1b;
-  }
-
-  .title{
-    margin-top: 20px;
+.investment{
+  h3{
     font-weight: bold;
-    font-size: 1em;
+    color: $secondary;
   }
 
-  .amount{
-    text-align: center;
-    margin-top: 50px;
-    font-size: 1.8em;
-
-    .currency{
-      font-size: 0.6em;
-    }
-  }
-
-  .button{
-    margin-top: 20px;
-
-    button{
-      border: unset;
-      color: white;
-      height: 50px;
-      background-color: unset;
-      border: 1px solid white;
-      border-radius: 60px;
-
-      &:hover{
-        background-color: rgb(40, 40, 40);
-        border: unset;
-      }
-    }
+  h5{
+    color: $secondary;
   }
 }

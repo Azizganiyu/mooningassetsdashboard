@@ -20,6 +20,7 @@ import { FundModalComponent } from '../../components/fund-modal/fund-modal.compo
 import { PostAddressComponent } from '../../components/post-address/post-address.component';
 import { ConfirmFundComponent } from '../../components/confirm-fund/confirm-fund.component';
 import { GetAmountComponent } from '../../components/get-amount/get-amount.component';
+import { PricingComponent } from '../../components/pricing/pricing.component';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { GetAmountComponent } from '../../components/get-amount/get-amount.compo
     PostAddressComponent,
     ConfirmFundComponent,
     GetAmountComponent,
+    PricingComponent,
   ]
 })
 

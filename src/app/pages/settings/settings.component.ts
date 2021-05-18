@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'app/services/auth/auth.service';
 import { HelperService } from 'app/services/helper/helper.service';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-settings',
@@ -10,6 +12,8 @@ import { HelperService } from 'app/services/helper/helper.service';
 })
 export class SettingsComponent implements OnInit {
 
+  bonus: any = '...'
+  url: string = 'https://mooningasset.com'
   updatingChangepassForm: boolean = false
   updatingChangeemailForm: boolean = false
 
@@ -26,10 +30,35 @@ export class SettingsComponent implements OnInit {
   constructor(
     public auth: AuthService,
     private fb: FormBuilder,
-    private _helper: HelperService
-  ) { }
+    private _helper: HelperService,
+    private clipboard: Clipboard,
+    private afs: AngularFirestore
+  ) {
+    this.afs.collection('admin').doc('settings').get()
+    .subscribe((data : any) => {
+      this.bonus = data.data().bonus
+    })
+
+    this.auth.user$.subscribe(user => {
+      if(user) {
+
+        this.url = 'https://mooningasset.com?referral='+this.auth.user.username
+
+
+      } else {
+
+        this.url = 'https://mooningasset.com'
+
+      }
+    })
+  }
 
   ngOnInit(): void {
+  }
+
+  copy(){
+    this.clipboard.copy(this.url)
+    this._helper.showSuccess('', 'Copied!')
   }
 
   async changePass(){

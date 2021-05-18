@@ -1,0 +1,90 @@
+@import "../../../_variables.scss";
+
+.box{
+  background-color: rgb(240, 240, 240);
+  color: rgb(60, 60, 60);
+  cursor: pointer;
+  border-radius: 10px;
+
+  &:hover{
+    background-color: $secondary;
+  }
+
+  p{
+    font-size: 0.8em;
+  }
+
+  .header{
+    padding: 15px;
+    margin-bottom: 10px;
+    h5{
+      font-weight: bold;
+    }
+  }
+
+  .price{
+    padding: 15px;
+    margin-bottom: 30px;
+
+    .digit{
+      display: flex;
+      align-items: flex-end;
+      h1{
+        padding: 0;
+        margin: 0;
+      }
+      span{
+        margin-left: 10px;
+      }
+    }
+
+    p{
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .description{
+    background-color: rgba($color: #fff, $alpha: .5);
+    position: relative;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    margin-bottom: 30px;
+    color: rgb(40, 40, 40);
+
+    button{
+      width: 60%;
+      height: 30px;
+      position: absolute;
+      bottom: -15px;
+      left: 20%;
+      border: unset;
+      background-color: rgb(60, 60, 60);
+      color: #fff;
+      border-radius: 20px;
+      font-size: 0.8em;
+
+      &:hover{
+        opacity: .5;
+      }
+    }
+  }
+
+  .features{
+    padding: 15px;
+
+    ul{
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li{
+        font-size: 0.8em;
+        margin: 5px 0;
+      }
+    }
+  }
+}

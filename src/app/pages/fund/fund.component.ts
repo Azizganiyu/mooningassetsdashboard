@@ -34,24 +34,37 @@ export class FundComponent implements OnInit {
 
   requests: Observable<RequestId[]>;
 
-  plans = {
-    starter: {
-      min: 200,
-      max: 1000
+  plans : any = [
+    {
+      plan: 'Moon Basic',
+      percent: 10,
+      minimum: 500,
+      maximum: 1999,
+      referral: 5,
     },
-    premium: {
-      min: 1000,
-      max: 5000
+    {
+      plan: 'Elite Moon',
+      percent: 12,
+      minimum: 2000,
+      maximum: 5999,
+      referral: 5,
     },
-    deluxe: {
-      min: 5000,
-      max: 10000
+    {
+      plan: 'Premium Moon',
+      percent: 15,
+      minimum: 6000,
+      maximum: 10999,
+      referral: 5,
     },
-    exclusive: {
-      min: 10000,
-      max: 100000
-    }
-  }
+    {
+      plan: 'Moon Gold',
+      percent: 20,
+      minimum: 11000,
+      maximum: 50000,
+      referral: 5,
+    },
+  ]
+
   constructor(
     private _http: HttpClient,
     private matDialog: MatDialog,
@@ -65,9 +78,10 @@ export class FundComponent implements OnInit {
     this.fundings()
   }
 
-  getAmount(plan){
+  getAmount(id){
+    var plan = this.plans[id]
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = this.plans[plan];
+    dialogConfig.data = plan;
     dialogConfig.autoFocus = false;
     let dialogRef = this.matDialog.open(GetAmountComponent, dialogConfig);
 
@@ -83,7 +97,7 @@ export class FundComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       amount: amount,
-      plan: plan
+      plan: plan.plan
     };
     dialogConfig.autoFocus = false;
     let dialogRef = this.matDialog.open(FundModalComponent, dialogConfig);

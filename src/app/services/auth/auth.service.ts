@@ -113,7 +113,7 @@ export class AuthService {
 
   async signOut() {
     await this.afAuth.signOut();
-    location.href = `https://apexxoptions.com/auth/sign-out`
+    location.href = `https://mooningasset.com/sign-out`
   }
 
   async resetPassword(data) {

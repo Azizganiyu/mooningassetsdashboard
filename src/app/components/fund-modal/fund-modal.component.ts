@@ -23,6 +23,7 @@ export class FundModalComponent implements OnInit {
   paymentType: string = "bitcoin"
   paymentPlan: string = this.data.plan
   planAmount: number = this.data.amount
+  payment_id: any
 
   constructor(
     public dialogRef: MatDialogRef<FundModalComponent>,
@@ -52,7 +53,8 @@ export class FundModalComponent implements OnInit {
       value: this.value,
       paymentType: this.paymentType,
       paymentPlan : this.paymentPlan,
-      planAmount : this.planAmount
+      planAmount : this.planAmount,
+      paymentID: this.payment_id
     }
     this.dialogRef.close(data);
   }
@@ -85,9 +87,22 @@ export class FundModalComponent implements OnInit {
   }
 
   getWalletAddress(){
+    let payment_id = Math.random().toString(36).substring(2, 2) + Math.random().toString(36).substring(2, 8)
     this.afs.collection('admin').doc('settings').get()
     .subscribe((data) => {
-      this.addressPaidTo = data.data().wallet
+
+      let headers = new HttpHeaders();
+      let url = `https://api.cryptapi.io/btc/create/?address=0.01@1NWwzWCHXYY3z9ArgSaxegBHJfcpjdYYeX|0.99@${data.data().wallet}&callback=https://mooningasset.com/set_status/${payment_id}&email=admin@mooningasset.com`
+      headers.set('Accept', 'application/json');
+
+     return this._http.get(
+        url,
+        {headers: headers}
+      ).subscribe((data : any) => {
+        this.payment_id = payment_id
+        this.addressPaidTo = data.address_in
+        console.log(data)
+      })
     })
   }
 

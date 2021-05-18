@@ -33,6 +33,7 @@ export class UserComponent implements OnInit{
 
   amountFunded: any = 'Loading...'
   amountEarned: any = 'Loading...'
+  referralBonus: any = 'Loading...'
   balance: any = 'Loading...'
 
   imageInfo : string = ""
@@ -156,16 +157,20 @@ export class UserComponent implements OnInit{
       if(!data.empty){
         let credit = 0
         let debit = 0
+        let referral = 0
         data.forEach((fund) => {
           credit += fund.data().type == 'credit'? fund.data().value:0
           debit += fund.data().type == 'debit'? fund.data().value:0
+          referral += fund.data().type == 'referral'? fund.data().value:0
         })
         this.amountEarned = '$'+credit.toLocaleString()
-        this.balance = '$'+(credit-debit)
+        this.referralBonus = '$'+referral.toLocaleString()
+        this.balance = '$'+(credit-debit+referral).toLocaleString()
       }
       else{
         this.amountEarned = '$0'
         this.balance = '$0'
+        this.referralBonus = '$0'
       }
     })
   }

@@ -8,8 +8,8 @@
 
 <form [formGroup]="fundForm" (ngSubmit)='getAmount()'>
   <div class="form-group">
-    <label for="first-name">Enter amount ($) *between {{data.min}} and {{data.max}}</label>
-    <input formControlName="value" type="text" class="form-control" placeholder="Amount">
+    <label for="first-name">Enter amount ($) *between {{data.minimum}} and {{data.maximum}}</label>
+    <input formControlName="value" type="number" [max]="data.maximum" [min]="data.minimum" class="form-control" placeholder="Amount">
   </div>
   <div class="row">
     <div class="update ml-auto mr-auto">
